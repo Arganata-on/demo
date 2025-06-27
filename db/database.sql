@@ -41,7 +41,7 @@ values (1, 3, 2),
     (2, 1, 1),
     (3, 3, 4);
 
-DELIMITER $$
+DELIMITER $$    
 
 CREATE TRIGGER kurangi_stok_setelah_penjualan
     AFTER INSERT
