@@ -1,4 +1,4 @@
--- Active: 1748068829425@@127.0.0.1@3306@toko_db
+
 CREATE DATABASE toko_db;
 
 USE toko_db;
@@ -26,31 +26,38 @@ CREATE TABLE transactions (
 
 INSERT INTO
     categories
-values (1, 'Elektronik'),
+VALUES
+    (1, 'Elektronik'),
     (2, 'Pakaian');
 
-insert into
+INSERT INTO
     products
-values (1, 'Handphone', 2500000, 5, 1),
+VALUES
+    (1, 'Handphone', 2500000, 5, 1),
     (2, 'Sepatu', 120000, 12, 2),
     (3, 'Sandal', 13500, 29, 2);
 
-insert into
+INSERT INTO
     transactions
-values (1, 3, 2),
+VALUES
+    (1, 3, 2),
     (2, 1, 1),
     (3, 3, 4);
 
-DELIMITER $$    
+DELIMITER $ $ CREATE TRIGGER kurangi_stok_setelah_penjualan
+AFTER
+INSERT
+    ON transactions FOR EACH ROW BEGIN
+UPDATE
+    products
+SET
+    stok = stok - NEW.jumlah_dibeli
+WHERE
+    id_produk = NEW.id_produk;
 
-CREATE TRIGGER kurangi_stok_setelah_penjualan
-    AFTER INSERT
-    ON transactions
-    FOR EACH ROW
-BEGIN
-    UPDATE products
-    SET stok = stok - NEW.jumlah_dibeli
-    WHERE id_produk = NEW.id_produk;
-END$$
+END $ $ DELIMITER;
 
-DELIMITER;
+SHOW DATABASES;
+
+
+INSERT INTO products(id_produk,nama,harga,stok) VALUES (12,"sunlight",3000,3);
