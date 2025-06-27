@@ -1,10 +1,12 @@
 package com.example;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 
 public class Controller {
+
     @FXML
     private TableView<?> tableViewData;
 
@@ -15,34 +17,32 @@ public class Controller {
     private Button insertButton;
 
     @FXML
-    private Button updateButton;
+    private Button tombolUpdate;
 
     @FXML
-    private Button deleteButton;
+    private Button tombolDelete;
 
     @FXML
-    private void handleLoadButtonAction() {
-        System.out.println("Tombol Load ditekan!");
+    private void handleLoadAction(ActionEvent event) {
+        System.out.println("👉 Tombol Load diklik!");
+        // Tambahkan logika untuk load data ke tableView
     }
 
     @FXML
-    private void handleInsertButtonAction() {
-        System.out.println("Tombol Insert ditekan!");
+    private void handleInsertAction(ActionEvent event) {
+        System.out.println("➕ Tombol Insert diklik!");
+        // Tambahkan logika untuk insert data
     }
 
     @FXML
-    private void handleUpdateButtonAction() {
-        System.out.println("Tombol Update ditekan!");
+    private void handleUpdateAction(ActionEvent event) {
+        System.out.println("✏️ Tombol Update diklik!");
+        // Tambahkan logika untuk update data
     }
 
     @FXML
-    private void handleDeleteButtonAction() {
-        System.out.println("Tombol Delete ditekan!");
-    }
-
-    @FXML
-    public void initialize() {
-        
-        System.out.println("Controller telah diinisialisasi.");
+    private void handleDeleteAction(ActionEvent event) {
+        System.out.println("❌ Tombol Delete diklik!");
+        // Tambahkan logika untuk hapus data
     }
 }
