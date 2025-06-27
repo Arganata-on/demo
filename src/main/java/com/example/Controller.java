@@ -1,14 +1,34 @@
 package com.example;
 
-import javafx.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller {
+    @FXML
+    private TableView<Product> tableViewData;
 
     @FXML
-    private TableView<?> tableViewData;
+    private TableColumn<Product, Integer> kolomId;
+
+    @FXML
+    private TableColumn<Product, String> kolomNama;
+
+    @FXML
+    private TableColumn<Product, Integer> kolomHarga;
+
+    @FXML
+    private TableColumn<Product, Integer> kolomStok;
+
+    @FXML
+    private TableColumn<Product, String> kolomKategori;
 
     @FXML
     private Button loadButton;
@@ -17,32 +37,60 @@ public class Controller {
     private Button insertButton;
 
     @FXML
-    private Button tombolUpdate;
+    private Button updateButton;
 
     @FXML
-    private Button tombolDelete;
+    private Button deleteButton;
 
     @FXML
-    private void handleLoadAction(ActionEvent event) {
-        System.out.println("👉 Tombol Load diklik!");
-        // Tambahkan logika untuk load data ke tableView
+    public void initialize() {
+        kolomId.setCellValueFactory(new PropertyValueFactory<>("id_produk"));
+        kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
+        kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
+        kolomStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
+        kolomKategori.setCellValueFactory(new PropertyValueFactory<>("nama_kategori"));
     }
 
     @FXML
-    private void handleInsertAction(ActionEvent event) {
-        System.out.println("➕ Tombol Insert diklik!");
-        // Tambahkan logika untuk insert data
+    private void handleLoadAction() {
+        System.out.println("Tombol Load diklik!");
+        ObservableList<Product> productList = FXCollections.observableArrayList();
+        String sql = "SELECT p.id_produk, p.nama, p.harga, p.stok, c.nama_kategori " +
+                "FROM products p JOIN categories c ON p.id_kategori = c.id_kategori";
+
+        try (Connection conn = Database.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getInt("id_produk"),
+                        rs.getString("nama"),
+                        rs.getInt("harga"),
+                        rs.getInt("stok"),
+                        rs.getString("nama_kategori"));
+                productList.add(product);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Jumlah produk ditemukan: " + productList.size());
+        tableViewData.setItems(productList);
     }
 
     @FXML
-    private void handleUpdateAction(ActionEvent event) {
-        System.out.println("✏️ Tombol Update diklik!");
-        // Tambahkan logika untuk update data
+    private void handleInsertAction() {
+        System.out.println("Tombol Insert diklik!");
     }
 
     @FXML
-    private void handleDeleteAction(ActionEvent event) {
-        System.out.println("❌ Tombol Delete diklik!");
-        // Tambahkan logika untuk hapus data
+    private void handleUpdateAction() {
+        System.out.println("Tombol Update diklik!");
+    }
+
+    @FXML
+    private void handleDeleteAction() {
+        System.out.println("Tombol Delete diklik!");
     }
 }
