@@ -1,4 +1,7 @@
-package com.example;
+package com.example.controller;
+
+import com.example.components.PopUpAlert;
+import com.example.db.Database;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +21,12 @@ public class InsertPopUpController {
     @FXML
     private TextField stokBarang;
 
+    private BerandaController mainController;
+
+    public void setMainController(BerandaController controller) {
+        this.mainController = controller;
+    }
+
     @FXML
     void cencelData(ActionEvent event) {
 
@@ -35,25 +44,27 @@ public class InsertPopUpController {
             int harga = Integer.parseInt(hargaBarang.getText());
             int stok = Integer.parseInt(stokBarang.getText());
 
-            System.out.println("kode: " + kode);
-            System.out.println("nama: " + nama);
-            System.out.println("harga: " + harga);
-            System.out.println("stok: " + stok);
+            boolean success = Database.insertData(kode, nama, harga, stok);
+            if (success) {
+                System.out.println("Data berhasil disimpan!");
 
-            Database.insertData(kode, nama, harga, stok);
-            System.out.println("Data berhasil disimpan! ");
+                if (mainController != null) {
+                    mainController.refreshTabelBarang();
+                }
+
+                javafx.scene.Node source = (javafx.scene.Node) event.getSource();
+                javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+                stage.close();
+            }
 
         } catch (NumberFormatException e) {
             System.out.println("Input angka tidak valid ");
-            e.printStackTrace();
+            PopUpAlert.popupWarn("Input Error", "Data tidak Valid",
+                    "Pastikan input harga, stok, dan kode berupa angka");
         } catch (Exception e) {
             System.out.println("Terjadi kesalahan saat menyimpan data ");
             e.printStackTrace();
-        } finally {
-            javafx.scene.Node source = (javafx.scene.Node) event.getSource();
-            javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-            stage.close();
+            PopUpAlert.popupWarn("Gagal Simpan", "Gagal Simpan", "Terjadi kesalahan tidak terduga");
         }
     }
 

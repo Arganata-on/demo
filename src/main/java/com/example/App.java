@@ -7,8 +7,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+import com.example.model.Product;
+
 public class App extends Application {
     private static Scene scene;
+
+    public static Product userSelect = new Product(0, "nulll", 1, 1, "nul");
 
     @Override
     public void start(Stage stage) throws IOException {
