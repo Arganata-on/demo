@@ -1,13 +1,12 @@
 package com.example.controller;
 
 import java.io.IOException;
-
 import com.example.App;
 import com.example.components.PopUpAlert;
 import com.example.db.Database;
 import com.example.model.Product;
 import com.example.utils.Utils;
-
+import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +17,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class BerandaController {
 
@@ -54,6 +57,9 @@ public class BerandaController {
     private Button deleteButton;
 
     @FXML
+    private Label alertLabel;
+
+    @FXML
     public void initialize() {
         kolomId.setCellValueFactory(new PropertyValueFactory<>("id_produk"));
         kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
@@ -79,12 +85,18 @@ public class BerandaController {
     private void handleLoadAction() {
         System.out.println("Tombol Load diklik!");
         tableViewData.setItems(Utils.loadData());
+        if (!tableViewData.getItems().isEmpty()) {
+            showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
+        } else {
+            showFadingMessage(alertLabel, "No Data Found.", 2, "#FF4560");
+        }
+
     }
 
     @FXML
     private void handleInsertAction(ActionEvent event) {
         System.out.println("Tombol Insert diklik!");
-        showPopup(event, "/com/example/InsertPopUp.fxml", "insert data");
+        showPopup(event, "/com/example/InsertPopUp.fxml", "Insert Data");
     }
 
     @FXML
@@ -106,6 +118,8 @@ public class BerandaController {
 
         Database.deleteData(App.userSelect.getId_produk());
         tableViewData.setItems(Utils.loadData());
+        App.userSelect.setId_produk(0);
+
     }
 
     private void showPopup(ActionEvent event, String fxmlFile, String title) {
@@ -141,7 +155,32 @@ public class BerandaController {
     }
 
     public void refreshTabelBarang() {
-        System.out.println("resfres");
+        System.out.println("Refresh");
         tableViewData.setItems(Utils.loadData());
+        if (!tableViewData.getItems().isEmpty()) {
+            showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
+        } else {
+            showFadingMessage(alertLabel, "No Data Found.", 2, "#FF4560");
+        }
+    }
+
+    public void showFadingMessage(Label label, String message, int seconds, String color) {
+        label.setText(message);
+        label.setTextFill(Color.web(color));
+        label.setStyle("-fx-font-weight: bold;");
+        label.setOpacity(1.0);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(seconds));
+        delay.setOnFinished(event -> {
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), label);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+
+            fadeOut.setOnFinished(e -> label.setText(""));
+
+            fadeOut.play();
+        });
+
+        delay.play();
     }
 }

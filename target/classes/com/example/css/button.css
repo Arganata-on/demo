@@ -1,0 +1,18 @@
+/* --- Button Style --- */
+.button {
+  -fx-font-family: "Fira Code", monospace;
+  -fx-font-weight: bold;
+  -fx-font-size: 14px;
+  -fx-background-color: #3e5879; /* Independent Blue */
+  -fx-text-fill: #f5efe7; /* Linen/Off-White */
+  -fx-background-radius: 5px;
+}
+
+.button:hover {
+  -fx-background-color: #536b8f; /* A slightly lighter version of Independent Blue */
+  -fx-cursor: hand;
+}
+
+.button:pressed {
+  -fx-background-color: #2e4461; /* A slightly darker version of Independent Blue */
+}

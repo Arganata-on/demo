@@ -9,7 +9,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import com.example.components.PopUpAlert;
 
 public class Database {
-    private static final String URL = "jdbc:mysql://localhost:3307/arganataon";
+    private static final String URL = "jdbc:mysql://localhost:3306/toko_db";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 

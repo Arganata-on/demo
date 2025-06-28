@@ -8,26 +8,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="164.0" prefWidth="900.0" style="-fx-background-color: #;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.InsertPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="874.0" styleClass="mainContainer" stylesheets="@css/insertPopUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.InsertPopUpController">
   <children>
-    <HBox alignment="CENTER" prefHeight="91.0" prefWidth="900.0">
+    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="874.0">
       <children>
-        <Label prefHeight="17.0" prefWidth="67.0" text="Kode:">
+        <Label text="Kode:" textFill="WHITE">
           <HBox.margin>
             <Insets right="5.0" />
           </HBox.margin>
+               <font>
+                  <Font name="Dubai Bold" size="12.0" />
+               </font>
         </Label>
         <TextField fx:id="kodeBarang" prefHeight="25.0" prefWidth="77.0">
           <HBox.margin>
             <Insets right="20.0" />
           </HBox.margin>
         </TextField>
-        <Label prefHeight="17.0" prefWidth="40.0" text="Nama:">
+        <Label text="Nama:">
           <HBox.margin>
             <Insets right="5.0" />
           </HBox.margin>
         </Label>
-        <TextField fx:id="namaBarang" prefHeight="25.0" prefWidth="163.0">
+        <TextField fx:id="namaBarang" prefHeight="25.0" prefWidth="201.0">
           <HBox.margin>
             <Insets right="20.0" />
           </HBox.margin>
@@ -37,7 +40,7 @@
             <Insets right="5.0" />
           </HBox.margin>
         </Label>
-        <TextField fx:id="hargaBarang">
+        <TextField fx:id="hargaBarang" prefHeight="25.0" prefWidth="98.0">
           <HBox.margin>
             <Insets right="20.0" />
           </HBox.margin>
@@ -47,19 +50,19 @@
             <Insets right="5.0" />
           </HBox.margin>
         </Label>
-        <TextField fx:id="stokBarang">
+        <TextField fx:id="stokBarang" prefHeight="25.0" prefWidth="140.0">
           <HBox.margin>
             <Insets right="20.0" />
           </HBox.margin>
         </TextField>
       </children>
     </HBox>
-    <Button layoutX="651.0" layoutY="91.0" mnemonicParsing="false" onAction="#cofimData" text="Confirm">
+    <Button layoutX="716.0" layoutY="55.0" mnemonicParsing="false" onAction="#cofimData" stylesheets="@css/button.css" text="Confirm">
       <font>
         <Font name="Poppins SemiBold" size="14.0" />
       </font>
     </Button>
-    <Button layoutX="774.0" layoutY="91.0" mnemonicParsing="false" onAction="#cencelData" text="Cancel">
+    <Button layoutX="603.0" layoutY="55.0" mnemonicParsing="false" onAction="#cencelData" stylesheets="@css/button.css" text="Cancel">
       <font>
         <Font name="Poppins SemiBold" size="14.0" />
       </font>
