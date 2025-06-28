@@ -2,12 +2,15 @@ package com.example.controller;
 
 import com.example.components.PopUpAlert;
 import com.example.db.Database;
+import com.example.utils.IResultableController;
+import com.example.utils.Utils;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class InsertPopUpController {
+public class InsertPopUpController implements IResultableController {
 
     @FXML
     private TextField hargaBarang;
@@ -21,19 +24,11 @@ public class InsertPopUpController {
     @FXML
     private TextField stokBarang;
 
-    private BerandaController mainController;
-
-    public void setMainController(BerandaController controller) {
-        this.mainController = controller;
-    }
+    private boolean isSuccess = false;
 
     @FXML
     void cencelData(ActionEvent event) {
-
-        javafx.scene.Node source = (javafx.scene.Node) event.getSource();
-        javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-        stage.close();
+        Utils.closeWindow(event);
     }
 
     @FXML
@@ -44,19 +39,14 @@ public class InsertPopUpController {
             int harga = Integer.parseInt(hargaBarang.getText());
             int stok = Integer.parseInt(stokBarang.getText());
 
-            boolean success = Database.insertData(kode, nama, harga, stok);
-            if (success) {
+            boolean dbSuccess = Database.insertData(kode, nama, harga, stok);
+            if (dbSuccess) {
                 System.out.println("Data berhasil disimpan!");
+                this.isSuccess = true;
 
-                if (mainController != null) {
-                    mainController.refreshTabelBarang();
-                }
-
-                javafx.scene.Node source = (javafx.scene.Node) event.getSource();
-                javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-                stage.close();
             }
 
+            Utils.closeWindow(event);
         } catch (NumberFormatException e) {
             System.out.println("Input angka tidak valid ");
             PopUpAlert.popupWarn("Input Error", "Data tidak Valid",
@@ -66,6 +56,11 @@ public class InsertPopUpController {
             e.printStackTrace();
             PopUpAlert.popupWarn("Gagal Simpan", "Gagal Simpan", "Terjadi kesalahan tidak terduga");
         }
+    }
+
+    @Override
+    public boolean isSuccess() {
+        return isSuccess;
     }
 
 }

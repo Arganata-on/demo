@@ -9,6 +9,8 @@ import com.example.model.Product;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+
 
 public class Utils {
 
@@ -37,5 +39,12 @@ public class Utils {
 
         System.out.println("Jumlah produk ditemukan: " + productList.size());
         return productList;
+    }
+
+    public static void closeWindow(ActionEvent event) {
+        javafx.scene.Node source = (javafx.scene.Node) event.getSource();
+        javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+
+        stage.close();
     }
 }

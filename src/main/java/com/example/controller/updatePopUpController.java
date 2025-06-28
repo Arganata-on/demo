@@ -2,13 +2,15 @@ package com.example.controller;
 
 import com.example.App;
 import com.example.db.Database;
+import com.example.utils.IResultableController;
+import com.example.utils.Utils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
-public class updatePopUpController {
+public class updatePopUpController implements IResultableController {
 
     @FXML
     private TextField hargaBarang;
@@ -18,21 +20,13 @@ public class updatePopUpController {
 
     @FXML
     private TextField stokBarang;
-
-    private BerandaController mainController;
-
-    public void setMainController(BerandaController controller) {
-        this.mainController = controller;
-    }
+    private boolean isSuccess = false;
 
     @FXML
     void cencelData(ActionEvent event) {
         clearData();
-        closeWindow(event);
-    }
-
-    public void refreshTabelBarang() {
-        System.out.println("Tabel di-refresh dari InsertPopUp!");
+        Utils.closeWindow(event);
+        ;
     }
 
     @FXML
@@ -42,14 +36,13 @@ public class updatePopUpController {
             int stok = Integer.parseInt(stokBarang.getText());
             String nama = namaBarang.getText();
 
-            Database.updateData(App.userSelect.getId_produk(), nama, harga, stok);
-
-            if (mainController != null) {
-                mainController.refreshTabelBarang();
+            boolean dbSuccess = Database.updateData(App.userSelect.getId_produk(), nama, harga, stok);
+            if (dbSuccess) {
+                this.isSuccess = true;
             }
-
             clearData();
-            closeWindow(event);
+            App.userSelect.setId_produk(0);
+            Utils.closeWindow(event);
 
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,10 +66,9 @@ public class updatePopUpController {
         stokBarang.setText("");
     }
 
-    void closeWindow(ActionEvent event) {
-        javafx.scene.Node source = (javafx.scene.Node) event.getSource();
-        javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
-
-        stage.close();
+    @Override
+    public boolean isSuccess() {
+        return isSuccess;
     }
+
 }

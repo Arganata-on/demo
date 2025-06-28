@@ -54,7 +54,7 @@ public class Database {
         }
     }
 
-    public static void updateData(int kodeProduk, String nama, int harga, int stok) {
+    public static boolean updateData(int kodeProduk, String nama, int harga, int stok) {
         String sql = "UPDATE products SET nama=?, harga=?, stok=?, id_kategori=? WHERE id_produk=?";
 
         try (
@@ -70,17 +70,20 @@ public class Database {
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Produk berhasil diupdate!");
+                return true;
             } else {
                 System.out.println("Tidak ada produk yang terupdate.");
+                return false;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Gagal update produk.");
+            return false;
         }
     }
 
-    public static void deleteData(int id) {
+    public static boolean deleteData(int id) {
         String sql = "DELETE FROM products WHERE id_produk = ?;";
 
         try (
@@ -92,13 +95,16 @@ public class Database {
             int rowsUpdated = pstmt.executeUpdate();
             if (rowsUpdated > 0) {
                 System.out.println("Produk berhasil dihapus!");
+                return true;
             } else {
                 System.out.println("Tidak ada produk yang dihapus.");
+                return false;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Gagal hapus produk.");
+            return false;
         }
     }
 

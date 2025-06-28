@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="427.0" style="-fx-background-color: #213555;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="427.0" style="-fx-background-color: #213555;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DeletePopUpController">
    <center>
       <Label text="Apakah Anda yakin ingin menghapus produk '[Nama Produk]'?" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
@@ -19,8 +18,8 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="37.0" prefWidth="320.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" stylesheets="@css/button.css" text="Batal" />
-            <Button mnemonicParsing="false" style="-fx-background-color: red;" stylesheets="@css/button.css" text="Hapus" />
+            <Button fx:id="btnBatal" mnemonicParsing="false" onAction="#handleActionBatal" stylesheets="@css/button.css" text="Batal" />
+            <Button fx:id="btnHapus" mnemonicParsing="false" onAction="#handleHapusAction" style="-fx-background-color: red;" stylesheets="@css/button.css" text="Hapus" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" />

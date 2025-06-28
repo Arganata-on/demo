@@ -1,10 +1,11 @@
 package com.example.controller;
 
 import java.io.IOException;
+
 import com.example.App;
 import com.example.components.PopUpAlert;
-import com.example.db.Database;
 import com.example.model.Product;
+import com.example.utils.IResultableController;
 import com.example.utils.Utils;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
@@ -96,7 +97,11 @@ public class BerandaController {
     @FXML
     private void handleInsertAction(ActionEvent event) {
         System.out.println("Tombol Insert diklik!");
-        showPopup(event, "/com/example/InsertPopUp.fxml", "Insert Data");
+        boolean success = showPopup(event, "/com/example/InsertPopUp.fxml", "Insert Data");
+        if (success) {
+            refreshTabelBarang();
+            showFadingMessage(alertLabel, "Data berhasil ditambahkan.", 2, "#5DF57A");
+        }
     }
 
     @FXML
@@ -105,39 +110,39 @@ public class BerandaController {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-        showPopup(event, "/com/example/updatePopUp.fxml", "Update Data");
+        boolean success = showPopup(event, "/com/example/updatePopUp.fxml", "Update Data");
+        if (success) {
+            refreshTabelBarang();
+            showFadingMessage(alertLabel, "Data berhasil diperbarui.", 2, "#5DF57A");
+        }
+
     }
 
     @FXML
-    private void handleDeleteAction() {
-        System.out.println("Tombol Delete diklik!");
+    private void handleDeleteAction(ActionEvent event) {
+        System.out.println("Tombol delete tersentuh");
         if (App.userSelect.getId_produk() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-
-        Database.deleteData(App.userSelect.getId_produk());
-        tableViewData.setItems(Utils.loadData());
-        App.userSelect.setId_produk(0);
-
+        boolean success = showPopup(event, "/com/example/deletePopup.fxml", "Delete Konfirmasi");
+        if (success) {
+            refreshTabelBarang();
+            showFadingMessage(alertLabel, "Data berhasil dihapus.", 2, "#5DF57A");
+        }
     }
 
-    private void showPopup(ActionEvent event, String fxmlFile, String title) {
-
+    private boolean showPopup(ActionEvent event, String fxmlFile, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            Object controller = loader.getController();
 
-            if (controller instanceof InsertPopUpController insertController) {
-                insertController.setMainController(this);
-            }
+           
+            Object controllerObj = loader.getController();
 
-            if (controller instanceof updatePopUpController updateController) {
-                updateController.setMainController(this);
-                updateController.setData(
-                        App.userSelect.getNama(),
-                        String.valueOf(App.userSelect.getHarga()),
+           
+            if (controllerObj instanceof updatePopUpController updateController) {
+                updateController.setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
                         String.valueOf(App.userSelect.getStok()));
             }
 
@@ -146,22 +151,24 @@ public class BerandaController {
             stage.initOwner(((Node) event.getSource()).getScene().getWindow());
             stage.setTitle(title);
             stage.setScene(new Scene(root));
+
+            
             stage.showAndWait();
 
+          
+            if (controllerObj instanceof IResultableController resultController) {
+                return resultController.isSuccess();
+            }
+
         } catch (IOException e) {
-            System.err.println(" Failed to load FXML file. ");
             e.printStackTrace();
         }
+        return false; 
     }
 
     public void refreshTabelBarang() {
         System.out.println("Refresh");
         tableViewData.setItems(Utils.loadData());
-        if (!tableViewData.getItems().isEmpty()) {
-            showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
-        } else {
-            showFadingMessage(alertLabel, "No Data Found.", 2, "#FF4560");
-        }
     }
 
     public void showFadingMessage(Label label, String message, int seconds, String color) {
@@ -183,4 +190,5 @@ public class BerandaController {
 
         delay.play();
     }
+
 }
