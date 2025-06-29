@@ -13,14 +13,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.BerandaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.TransactionsController">
   <center>
     <TableView fx:id="tableViewData" onDragDropped="#handleLoadAction" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 4px;">
       <columns>
         <TableColumn fx:id="kolomId" prefWidth="120.0" style="-fx-background-radius: 4px 0 0 0;" text="ID" />
         <TableColumn fx:id="kolomNama" prefWidth="209.0" text="NAMA" />
         <TableColumn fx:id="kolomHarga" prefWidth="120.0" text="HARGA" />
-        <TableColumn fx:id="kolomStok" prefWidth="120.0" text="STOCK" />
+        <TableColumn fx:id="kolomStok" prefWidth="120.0" text="JUMLAH DIBELI" />
         <TableColumn fx:id="kolomKategori" prefWidth="126.0" style="-fx-background-radius: 0 4px 0 0;" text="KATEGORY" />
       </columns>
          <BorderPane.margin>
@@ -100,11 +100,11 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" stylesheets="@css/button.css" text="Products" />
+          <Button mnemonicParsing="false" onAction="#sceneProducts" stylesheets="@css/button.css" text="Products" />
             <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="3.0" />
             <Button mnemonicParsing="false" stylesheets="@css/button.css" text="Kategory" />
             <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="3.0" />
-            <Button mnemonicParsing="false" onAction="#sceneTransactions" stylesheets="@css/button.css" text="Transactions" />
+            <Button mnemonicParsing="false" stylesheets="@css/button.css" text="Transactions" />
         </items>
          <padding>
             <Insets bottom="5.0" left="7.0" right="5.0" top="8.0" />
