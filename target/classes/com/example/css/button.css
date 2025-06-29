@@ -1,6 +1,6 @@
 /* --- Button Style --- */
 .button {
-  -fx-font-family: "Fira Code", monospace;
+  -fx-font-family: "JetBrains Mono", monospace;
   -fx-font-weight: bold;
   -fx-font-size: 14px;
   -fx-background-color: #3e5879; /* Independent Blue */

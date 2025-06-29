@@ -175,7 +175,7 @@ public class BerandaController {
     public void showFadingMessage(Label label, String message, int seconds, String color) {
         label.setText(message);
         label.setTextFill(Color.web(color));
-        label.setStyle("-fx-font-weight: bold;");
+
         label.setOpacity(1.0);
 
         PauseTransition delay = new PauseTransition(Duration.seconds(seconds));

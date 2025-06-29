@@ -24,7 +24,7 @@
 /* Individual column header cells */
 .table-view .column-header {
   -fx-background-color: transparent;
-  -fx-font-weight: bold;
+  -fx-font-family: "JetBrains Mono SemiBold", monospace;
   -fx-padding: 12px;
   -fx-alignment: CENTER_LEFT;
   -fx-border-color: white;
@@ -47,7 +47,7 @@
 
 /* Default style for all data cells */
 .table-view .table-cell {
-  -fx-font-family: "Fira Code", monospace;
+  -fx-font-family: "JetBrains Mono", monospace;
   -fx-font-size: 14px;
   -fx-border-color: transparent;
   -fx-padding: 6px 12px;
