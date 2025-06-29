@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import com.example.App;
 import com.example.components.PopUpAlert;
+// import com.example.db.Database;
+import com.example.db.ProductDatabase;
 import com.example.model.Product;
 import com.example.utils.IResultableController;
-import com.example.utils.Utils;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,8 @@ import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class BerandaController {
+
+    ProductDatabase db = new ProductDatabase();
 
     @FXML
     private TableView<Product> tableViewData;
@@ -68,7 +71,7 @@ public class BerandaController {
         kolomStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
         kolomKategori.setCellValueFactory(new PropertyValueFactory<>("nama_kategori"));
 
-        tableViewData.setItems(Utils.loadData());
+        tableViewData.setItems(db.loadData());
 
         tableViewData.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -84,8 +87,8 @@ public class BerandaController {
 
     @FXML
     private void handleLoadAction() {
-        System.out.println("Tombol Load diklik!");
-        tableViewData.setItems(Utils.loadData());
+        App.userSelect.setId_produk(0);
+        tableViewData.setItems(db.loadData());
         if (!tableViewData.getItems().isEmpty()) {
             showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
         } else {
@@ -120,7 +123,10 @@ public class BerandaController {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        System.out.println("Tombol delete tersentuh");
+        if (App.userSelect.getId_produk() == 0) {
+            PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
+            return;
+        }
         if (App.userSelect.getId_produk() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
@@ -137,10 +143,8 @@ public class BerandaController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
 
-           
             Object controllerObj = loader.getController();
 
-           
             if (controllerObj instanceof updatePopUpController updateController) {
                 updateController.setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
                         String.valueOf(App.userSelect.getStok()));
@@ -152,10 +156,8 @@ public class BerandaController {
             stage.setTitle(title);
             stage.setScene(new Scene(root));
 
-            
             stage.showAndWait();
 
-          
             if (controllerObj instanceof IResultableController resultController) {
                 return resultController.isSuccess();
             }
@@ -163,12 +165,11 @@ public class BerandaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false; 
+        return false;
     }
 
     public void refreshTabelBarang() {
-        System.out.println("Refresh");
-        tableViewData.setItems(Utils.loadData());
+        tableViewData.setItems(db.loadData());
     }
 
     public void showFadingMessage(Label label, String message, int seconds, String color) {

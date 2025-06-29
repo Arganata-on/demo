@@ -1,16 +1,18 @@
 package com.example.controller;
 
 import com.example.App;
-import com.example.db.Database;
+import com.example.components.PopUpAlert;
+import com.example.db.ProductDatabase;
 import com.example.utils.IResultableController;
 import com.example.utils.Utils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class updatePopUpController implements IResultableController {
+
+    ProductDatabase db = new ProductDatabase();
 
     @FXML
     private TextField hargaBarang;
@@ -26,7 +28,6 @@ public class updatePopUpController implements IResultableController {
     void cencelData(ActionEvent event) {
         clearData();
         Utils.closeWindow(event);
-        ;
     }
 
     @FXML
@@ -36,20 +37,16 @@ public class updatePopUpController implements IResultableController {
             int stok = Integer.parseInt(stokBarang.getText());
             String nama = namaBarang.getText();
 
-            boolean dbSuccess = Database.updateData(App.userSelect.getId_produk(), nama, harga, stok);
+            boolean dbSuccess = db.updateData(App.userSelect.getId_produk(), nama, harga, stok);
             if (dbSuccess) {
                 this.isSuccess = true;
             }
             clearData();
             App.userSelect.setId_produk(0);
             Utils.closeWindow(event);
-
         } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Input Tidak Valid");
-            alert.setHeaderText(null);
-            alert.setContentText("Pastikan harga dan stok berisi angka yang valid.");
-            alert.showAndWait();
+            PopUpAlert.popupErr("Data validator", "Input Tidak Valid",
+                    "Pastikan harga dan stok berisi angka yang valid.");
         }
     }
 
@@ -64,6 +61,7 @@ public class updatePopUpController implements IResultableController {
         namaBarang.setText("");
         hargaBarang.setText("");
         stokBarang.setText("");
+        // App.userSelect.se
     }
 
     @Override

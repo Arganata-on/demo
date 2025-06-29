@@ -9,7 +9,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="427.0" style="-fx-background-color: #213555;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.DeletePopUpController">
    <center>
-      <Label text="Apakah Anda yakin ingin menghapus produk '[Nama Produk]'?" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Label fx:id="messegeDelete" text="Apakah Anda yakin ingin menghapus produk '[Nama Produk]'?" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font name="Poppins SemiBold" size="12.0" />
          </font>
