@@ -1,0 +1,18 @@
+
+
+Version:	3.50
+CmdLine:	E:\kuliah\pbo\UAS\javafxab\demo\output\demo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	E:\kuliah\pbo\UAS\javafxab\demo\output\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	1.021.000
+Java max ver:	1.024.000
+JRE paths:	E:\win\zulu21.42.19-ca-fx-jdk21.0.7-win_x64
+Check launcher:	E:\win\zulu21.42.19-ca-fx-jdk21.0.7-win_x64\bin\javaw.exe (OK)
+Version string: 1.021.000_007 / 64-Bit (OK)
+Launcher:	E:\win\zulu21.42.19-ca-fx-jdk21.0.7-win_x64\bin\javaw.exe
+Launcher args:	-jar "E:\kuliah\pbo\UAS\javafxab\demo\output\demo.exe"
+Args length:	54/32768 chars
+Exit code:	0
