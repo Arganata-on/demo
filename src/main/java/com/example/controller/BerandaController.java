@@ -103,15 +103,23 @@ public class BerandaController {
     }
 
     @FXML
-    private void handleUpdateAction(ActionEvent event) {
+    private void handleUpdateAction(ActionEvent event) throws IOException {
         if (App.userSelect.getId_produk() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-        boolean success = showPopup(event, "/com/example/updatePopUp.fxml", "Update Data");
-        if (success) {
-            refreshTabelBarang();
-            showFadingMessage(alertLabel, "Data berhasil diperbarui.", 2, "#5DF57A");
+        try {
+
+            boolean success = showPopup(event, "/com/example/updatePopUp.fxml", "UpdateData");
+            if (success) {
+                refreshTabelBarang();
+                showFadingMessage(alertLabel, "Data berhasil diperbarui.", 2, "#5DF57A");
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("popup Gagal mencoba Alternatif");
+            App.setRoute(true);
+            App.setRoot("updatePopup");
         }
 
     }

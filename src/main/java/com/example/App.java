@@ -18,6 +18,15 @@ import com.example.utils.IResultableController;
 public class App extends Application {
     public static SessionData userDatabse = new SessionData();
     private static Scene scene;
+    public static boolean route = false;
+
+    public static boolean isRoute() {
+        return route;
+    }
+
+    public static void setRoute(boolean route) {
+        App.route = route;
+    }
 
     public static Product userSelect = new Product(0, "nulll", 1, 1);
 

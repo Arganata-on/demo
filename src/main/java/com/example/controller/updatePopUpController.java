@@ -1,5 +1,8 @@
 package com.example.controller;
 
+import java.io.IOError;
+import java.io.IOException;
+
 import com.example.App;
 import com.example.components.PopUpAlert;
 import com.example.db.ProductDatabase;
@@ -27,13 +30,22 @@ public class updatePopUpController implements IResultableController {
     private TextField stokBarang;
 
     @FXML
-    void cancelData(ActionEvent event) {
+    void cancelData(ActionEvent event) throws IOException {
         clearData();
+        if (App.isRoute()) {
+            App.setRoot("Main");
+        }
         Utils.closeWindow(event);
     }
 
     @FXML
-    void confirmData(ActionEvent event) {
+    public void initialize() {
+        setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
+                String.valueOf(App.userSelect.getStok()));
+    }
+
+    @FXML
+    void confirmData(ActionEvent event) throws IOException {
 
         try {
             int harga = Integer.parseInt(hargaBarang.getText());
@@ -46,6 +58,9 @@ public class updatePopUpController implements IResultableController {
             }
             clearData();
             App.userSelect.setId_produk(0);
+            if (App.isRoute()) {
+                App.setRoot("Main");
+            }
             Utils.closeWindow(event);
         } catch (NumberFormatException e) {
             PopUpAlert.popupErr("Data validator", "Input Tidak Valid",
