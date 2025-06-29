@@ -4,11 +4,10 @@ import java.io.IOException;
 
 import com.example.App;
 import com.example.components.PopUpAlert;
-// import com.example.db.Database;
 import com.example.db.TransactionsDatabase;
-import com.example.model.Product;
 import com.example.model.Transactions;
 import com.example.utils.IResultableController;
+
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

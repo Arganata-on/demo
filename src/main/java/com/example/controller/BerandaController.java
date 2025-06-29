@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.example.App;
 import com.example.components.PopUpAlert;
-// import com.example.db.Database;
 import com.example.db.ProductDatabase;
 import com.example.model.Product;
 import com.example.utils.IResultableController;
@@ -90,10 +89,8 @@ public class BerandaController {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Transactions.fxml"));
 
-            // Get the current scene from any node in the current view
             Scene currentScene = ((Node) event.getSource()).getScene();
 
-            // Set the new root for the current scene
             currentScene.setRoot(root);
 
         } catch (IOException e) {
