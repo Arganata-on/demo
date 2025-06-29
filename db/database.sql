@@ -1,5 +1,3 @@
--- Active: 1748068829425@@127.0.0.1@3306@toko_db
-
 CREATE DATABASE toko_db;
 
 USE toko_db;
@@ -19,61 +17,52 @@ CREATE TABLE products (
 );
 
 CREATE TABLE transactions (
-    id_transaksi INT(11),
-    id_produk INT(11),
+    id_transaksi INT(11) PRIMARY KEY AUTO_INCREMENT,
     jumlah_dibeli INT(11),
-    FOREIGN KEY (id_produk) REFERENCES products (id_produk)
+    id_produk INT(11),
+    FOREIGN KEY (id_produk) REFERENCES products (id_produk) ON DELETE CASCADE
 );
 
 INSERT INTO
-    categories
-VALUES (1, 'Elektronik'),
-    (2, 'Pakaian');
+    categories (id_kategori, nama_kategori)
+VALUES 
+    (1, 'Minuman'),
+    (2, 'Makanan'),
+    (3, 'Peralatan Rumah Tangga');
 
 INSERT INTO
-    products
-VALUES (1, 'Handphone', 2500000, 5, 1),
-    (2, 'Sepatu', 120000, 12, 2),
-    (3, 'Sandal', 13500, 29, 2);
+    products (id_produk, nama, harga, stok, id_kategori)
+VALUES 
+    (1, 'Teh Botol Sosro', 5000, 50, 1),
+    (2, 'Aqua Botol 600ml', 4000, 60, 1),
+    (3, 'Kopi Kapal Api', 15000, 40, 1),
+    (4, 'Sprite Kaleng', 8000, 30, 1),
+    (5, 'Fanta Botol', 7000, 25, 1),
+    (6, 'Chitato', 8000, 40, 2),
+    (7, 'Oreo', 6000, 50, 2),
+    (8, 'Taro Snack', 7000, 35, 2),
+    (9, 'SilverQueen', 15000, 20, 2),
+    (10, 'Tango Wafer', 5000, 45, 2),
+    (11, 'Sapu Lantai', 25000, 20, 3),
+    (12, 'Ember Plastik', 18000, 30, 3),
+    (13, 'Gayung', 7000, 50, 3),
+    (14, 'Lap Pel', 20000, 25, 3),
+    (15, 'Tempat Sampah', 30000, 15, 3),
+    (16, 'Sabun Cuci Piring', 12000, 40, 3),
+    (17, 'Pisau Dapur', 22000, 20, 3),
+    (18, 'Sendok Stainless', 3000, 100, 3),
+    (19, 'Gelas Plastik', 4000, 80, 3),
+    (20, 'Wajan Anti Lengket', 55000, 10, 3);
 
-INSERT INTO
-    transactions
-VALUES (1, 3, 2),
-    (2, 1, 1),
-    (3, 3, 4);
+DELIMITER $$
 
-DELIMITER $
-$
 CREATE TRIGGER kurangi_stok_setelah_penjualan
-AFTER
-INSERT
-    ON transactions FOR EACH ROW BEGIN
-UPDATE
-    products
-SET
-    stok = stok - NEW.jumlah_dibeli
-WHERE
-    id_produk = NEW.id_produk;
+AFTER INSERT ON transactions
+FOR EACH ROW
+BEGIN
+    UPDATE products
+    SET stok = stok - NEW.jumlah_dibeli
+    WHERE id_produk = NEW.id_produk;
+END$$
 
-END $
-$
-
-DELIMITER;
-
-SHOW DATABASES;
-
-INSERT INTO
-    products (id_produk, nama, harga, stok)
-VALUES (12, "sunlight", 3000, 3);
-
-SELECT *
-FROM transactions
-    INNER JOIN products ON transactions.id_produk = products.id_produk;
-
-SELECT * FROM transactions;
-
-ALTER TABLE transactions MODIFY id_transaksi int PRIMARY KEY;
-
-ALTER TABLE transactions MODIFY id_transaksi int AUTO_INCREMENT;
-
-ALTER TABLE transactions AUTO_INCREMENT = 1;
+DELIMITER ;
