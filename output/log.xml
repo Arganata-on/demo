@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>E:\kuliah\pbo\UAS\javafxab\demo\demo.jar</jar>
-  <outfile>E:\kuliah\pbo\UAS\javafxab\demo\output\you.exe</outfile>
+  <outfile>E:\kuliah\pbo\UAS\javafxab\demo\output\build.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -19,6 +19,6 @@
     <requiresJdk>false</requiresJdk>
     <requires64Bit>false</requires64Bit>
     <minVersion>21</minVersion>
-    <maxVersion>25</maxVersion>
+    <maxVersion>24</maxVersion>
   </jre>
 </launch4jConfig>
