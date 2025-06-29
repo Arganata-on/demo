@@ -1,28 +1,21 @@
 package com.example.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.example.App;
 import com.example.components.PopUpAlert;
 import com.example.db.ProductDatabase;
-import com.example.model.Kategory;
+
 import com.example.utils.IResultableController;
 import com.example.utils.Utils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
+
 import javafx.scene.control.TextField;
 
-public class updatePopUpController implements IResultableController, Initializable {
+public class updatePopUpController implements IResultableController {
 
     ProductDatabase db = new ProductDatabase();
     private boolean isSuccess = false;
-
-    @FXML
-    private ChoiceBox<Kategory> kategoryChoice;
 
     @FXML
     private TextField hargaBarang;
@@ -33,12 +26,6 @@ public class updatePopUpController implements IResultableController, Initializab
     @FXML
     private TextField stokBarang;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Populate the choicebox from the database
-        kategoryChoice.setItems(db.getAllkategory());
-    }
-
     @FXML
     void cancelData(ActionEvent event) {
         clearData();
@@ -47,14 +34,13 @@ public class updatePopUpController implements IResultableController, Initializab
 
     @FXML
     void confirmData(ActionEvent event) {
-        Kategory selectedKategory = kategoryChoice.getValue();
+
         try {
             int harga = Integer.parseInt(hargaBarang.getText());
             int stok = Integer.parseInt(stokBarang.getText());
             String nama = namaBarang.getText();
-            int kategoryId = selectedKategory.getIdKategory();
 
-            boolean dbSuccess = db.updateData(App.userSelect.getId_produk(), nama, harga, stok, kategoryId);
+            boolean dbSuccess = db.updateData(App.userSelect.getId_produk(), nama, harga, stok);
             if (dbSuccess) {
                 this.isSuccess = true;
             }
@@ -67,33 +53,24 @@ public class updatePopUpController implements IResultableController, Initializab
         }
     }
 
-    public void setData(String nama, String harga, String stok, String namaKategory) {
+    public void setData(String nama, String harga, String stok) {
 
         namaBarang.setText(nama);
         hargaBarang.setText(harga);
         stokBarang.setText(stok);
-        selectKategoryByName(namaKategory);
+
     }
 
     public void clearData() {
         namaBarang.setText("");
         hargaBarang.setText("");
         stokBarang.setText("");
-        kategoryChoice.getSelectionModel().clearSelection();
+
     }
 
     @Override
     public boolean isSuccess() {
         return isSuccess;
-    }
-
-    public void selectKategoryByName(String namaKategory) {
-
-        kategoryChoice.getItems().stream()
-                .filter(kategory -> kategory.getKategoryNama().equals(namaKategory))
-                .findFirst()
-                .ifPresent(kategory -> kategoryChoice.setValue(kategory));
-
     }
 
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.BerandaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="593.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.BerandaController">
   <center>
     <TableView fx:id="tableViewData" onDragDropped="#handleLoadAction" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 4px;" BorderPane.alignment="CENTER_LEFT">
       <columns>
@@ -19,7 +19,6 @@
         <TableColumn fx:id="kolomNama" prefWidth="209.0" text="NAMA" />
         <TableColumn fx:id="kolomHarga" prefWidth="120.0" text="HARGA" />
         <TableColumn fx:id="kolomStok" prefWidth="120.0" text="STOCK" />
-        <TableColumn fx:id="kolomKategori" prefWidth="140.0" style="-fx-background-radius: 0 4px 0 0;" text="KATEGORY" />
       </columns>
       <BorderPane.margin>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

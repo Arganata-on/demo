@@ -3,71 +3,64 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="1100.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.updatePopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="730.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.updatePopUpController">
   <children>
-    <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="1100.0">
+    <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="729.0">
       <children>
         <Label prefHeight="17.0" prefWidth="40.0" text="Nama:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="namaBarang" prefHeight="40.0" prefWidth="200.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
         <Label text="Harga:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="hargaBarang" prefHeight="40.0" prefWidth="100.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
         <Label text="Stock:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="stokBarang" prefHeight="40.0" prefWidth="140.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
-        <Label text="Kategory:">
-          <HBox.margin>
-            <Insets right="5.0"/>
-          </HBox.margin>
-        </Label>
-        <ChoiceBox fx:id="kategoryChoice" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="180.0"/>
       </children>
     </HBox>
-    <Button layoutX="893.0" layoutY="76.0" mnemonicParsing="false" onAction="#confirmData" text="Confirm">
+    <Button layoutX="589.0" layoutY="76.0" mnemonicParsing="false" onAction="#confirmData" text="Confirm">
       <font>
-        <Font name="Poppins SemiBold" size="14.0"/>
+        <Font name="Poppins SemiBold" size="14.0" />
       </font>
     </Button>
-    <Button layoutX="779.0" layoutY="76.0" mnemonicParsing="false" onAction="#cancelData" text="Cancel">
+    <Button layoutX="500.0" layoutY="76.0" mnemonicParsing="false" onAction="#cancelData" text="Cancel">
       <font>
-        <Font name="Poppins SemiBold" size="14.0"/>
+        <Font name="Poppins SemiBold" size="14.0" />
       </font>
     </Button>
   </children>
   <padding>
-    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </padding>
   <stylesheets>
-    <URL value="@css/button.css"/>
-    <URL value="@css/updatePopUp.css"/>
+    <URL value="@css/button.css" />
+    <URL value="@css/updatePopUp.css" />
   </stylesheets>
 </AnchorPane>

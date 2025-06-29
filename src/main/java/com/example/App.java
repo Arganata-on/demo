@@ -13,7 +13,7 @@ import com.example.model.Product;
 public class App extends Application {
     private static Scene scene;
 
-    public static Product userSelect = new Product(0, "nulll", 1, 1, "nul");
+    public static Product userSelect = new Product(0, "nulll", 1, 1);
 
     @Override
     public void start(Stage stage) throws IOException {

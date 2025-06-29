@@ -1,4 +1,3 @@
-
 CREATE DATABASE toko_db;
 
 USE toko_db;
@@ -59,5 +58,8 @@ END $ $ DELIMITER;
 
 SHOW DATABASES;
 
+INSERT INTO
+    products(id_produk, nama, harga, stok)
+VALUES
+    (12, "sunlight", 3000, 3);
 
-INSERT INTO products(id_produk,nama,harga,stok) VALUES (12,"sunlight",3000,3);

@@ -46,9 +46,6 @@ public class BerandaController {
     private TableColumn<Product, Integer> kolomStok;
 
     @FXML
-    private TableColumn<Product, String> kolomKategori;
-
-    @FXML
     private Button loadButton;
 
     @FXML
@@ -69,7 +66,6 @@ public class BerandaController {
         kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
         kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
         kolomStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
-        kolomKategori.setCellValueFactory(new PropertyValueFactory<>("nama_kategori"));
 
         tableViewData.setItems(db.loadData());
 
@@ -80,7 +76,6 @@ public class BerandaController {
                         App.userSelect.setNama(newValue.getNama());
                         App.userSelect.setHarga(newValue.getHarga());
                         App.userSelect.setStok(newValue.getStok());
-                        App.userSelect.setNama_kategori(newValue.getNama_kategori());
                     }
                 });
     }
@@ -147,7 +142,7 @@ public class BerandaController {
 
             if (controllerObj instanceof updatePopUpController updateController) {
                 updateController.setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
-                        String.valueOf(App.userSelect.getStok()), App.userSelect.getNama_kategori());
+                        String.valueOf(App.userSelect.getStok()));
             }
 
             Stage stage = new Stage();

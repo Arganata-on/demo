@@ -2,80 +2,73 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="1093.0" styleClass="mainContainer" stylesheets="@css/insertPopUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.InsertPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="842.0" styleClass="mainContainer" stylesheets="@css/insertPopUp.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.InsertPopUpController">
   <children>
-    <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="1093.0">
+    <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="843.0">
       <children>
         <Label text="Kode:" textFill="WHITE">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
           <font>
-            <Font name="Dubai Bold" size="12.0"/>
+            <Font name="Dubai Bold" size="12.0" />
           </font>
         </Label>
         <TextField fx:id="kodeBarang" prefHeight="40.0" prefWidth="77.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
         <Label text="Nama:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="namaBarang" prefHeight="40.0" prefWidth="201.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
         <Label text="Harga:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="hargaBarang" prefHeight="40.0" prefWidth="98.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
         <Label text="Stock:">
           <HBox.margin>
-            <Insets right="5.0"/>
+            <Insets right="5.0" />
           </HBox.margin>
         </Label>
         <TextField fx:id="stokBarang" prefHeight="40.0" prefWidth="140.0">
           <HBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" />
           </HBox.margin>
         </TextField>
-        <Label text="Kategory:">
-          <HBox.margin>
-            <Insets right="5.0"/>
-          </HBox.margin>
-        </Label>
-        <ChoiceBox fx:id="kategoryChoice" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="182.0"/>
       </children>
     </HBox>
-    <Button layoutX="953.0" layoutY="74.0" mnemonicParsing="false" onAction="#confirmData" stylesheets="@css/button.css" text="Confirm">
+    <Button layoutX="712.0" layoutY="75.0" mnemonicParsing="false" onAction="#confirmData" stylesheets="@css/button.css" text="Confirm">
       <font>
-        <Font name="Poppins SemiBold" size="14.0"/>
+        <Font name="Poppins SemiBold" size="14.0" />
       </font>
     </Button>
-    <Button layoutX="839.0" layoutY="74.0" mnemonicParsing="false" onAction="#cancelData" stylesheets="@css/button.css" text="Cancel">
+    <Button layoutX="612.0" layoutY="75.0" mnemonicParsing="false" onAction="#cancelData" stylesheets="@css/button.css" text="Cancel">
       <font>
-        <Font name="Poppins SemiBold" size="14.0"/>
+        <Font name="Poppins SemiBold" size="14.0" />
       </font>
     </Button>
   </children>
   <padding>
-    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
   </padding>
 </AnchorPane>
