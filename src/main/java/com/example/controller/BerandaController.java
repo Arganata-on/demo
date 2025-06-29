@@ -147,7 +147,7 @@ public class BerandaController {
 
             if (controllerObj instanceof updatePopUpController updateController) {
                 updateController.setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
-                        String.valueOf(App.userSelect.getStok()));
+                        String.valueOf(App.userSelect.getStok()), App.userSelect.getNama_kategori());
             }
 
             Stage stage = new Stage();

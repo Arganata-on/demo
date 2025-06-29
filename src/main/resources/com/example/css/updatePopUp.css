@@ -22,3 +22,54 @@
   -fx-border-width: 1px;
   -fx-border-radius: 5px;
 }
+
+
+/* Style for the main ChoiceBox button itself */
+.choice-box {
+  -fx-background-color: #3e5874; /* Dark grey background */
+  -fx-border-color: transparent; /* Lighter grey border */
+}
+
+/* Style for the text of the selected item shown in the box */
+.choice-box .label {
+  -fx-text-fill: #ffffff; /* White text */
+}
+
+/* Style for the little arrow on the right side */
+.choice-box .arrow {
+  -fx-background-color: #ffffff; /* White arrow color */
+}
+
+/*
+ * --- Styling the Dropdown List ---
+ */
+
+/* Style for the popup list container */
+.choice-box .context-menu {
+  -fx-background-radius: 5px;
+  -fx-background-color: #3e5874; /* Very dark background for the dropdown */
+  -fx-background-insets: 0, 1;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 12, 0, 0, 8);
+}
+
+/* Style for each individual item/row in the dropdown list */
+.choice-box .menu-item {
+  -fx-background-color: transparent; /* Make rows transparent by default */
+}
+
+/* Style for the text of each item in the list */
+.choice-box .menu-item .label {
+  -fx-text-fill: #dddddd; /* Light grey text */
+}
+
+/* Style for an item WHEN THE MOUSE IS HOVERING OVER IT */
+.choice-box .menu-item:focused,
+.choice-box .menu-item:hover {
+  -fx-background-color: #007acc; /* A nice blue for hover highlight */
+}
+
+/* Style for the text of the hovered item */
+.choice-box .menu-item:focused .label,
+.choice-box .menu-item:hover .label {
+  -fx-text-fill: #ffffff; /* White text on hover */
+}
