@@ -36,8 +36,34 @@ public class TransactionsDatabase extends DatabaseConnection {
         }
     }
 
+    public boolean updateData(int id_produk, int jumlah_dibeli, int id_transaksi) {
+        String sql = "UPDATE transactions SET id_produk = ? ,jumlah_dibeli = ? WHERE id_transaksi = ?";
+
+        try (
+                Connection conn = getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id_produk);
+            pstmt.setInt(2, jumlah_dibeli);
+            pstmt.setInt(3, id_transaksi);
+
+            int rowsInserted = pstmt.executeUpdate();
+            System.out.println(rowsInserted > 0 ? "Transaksi berhasil diubah!" : "Gagal ubah transaksi.");
+            return rowsInserted > 0;
+
+            // } catch (SQLIntegrityConstraintViolationException dupEx) {
+            // System.out.println("Transaksi dengan ID " + id_transaksi + " sudah ada!");
+            // PopUpAlert.popupWarn("Gagal Tambah", "Duplikat Transaksi", "ID transaksi
+            // sudah digunakan!");
+            // return false;
+        } catch (Exception e) {
+            PopUpAlert.popupErr("SQL Error", "Gagal Insert Data :" + id_produk, "SQL Error : " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public boolean deleteData(int id) {
-        String sql = "DELETE FROM transactions WHERE id_transaction = ?";
+        String sql = "DELETE FROM transactions WHERE id_transaksi = ?";
 
         try (
                 Connection conn = getConnection();
@@ -60,7 +86,7 @@ public class TransactionsDatabase extends DatabaseConnection {
         String sql = "SELECT t.id_transaksi, p.nama, p.harga, t.jumlah_dibeli, c.nama_kategori " +
                 "FROM transactions t " +
                 "JOIN products p ON t.id_produk = p.id_produk " +
-                "JOIN categories c ON p.id_kategori = c.id_kategori";
+                "JOIN categories c ON p.id_kategori = c.id_kategori ORDER BY id_transaksi DESC";
 
         try (
                 Connection conn = getConnection();

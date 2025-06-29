@@ -124,7 +124,7 @@ public class KategoriController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Products.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectCategory.setIdKategori(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -139,7 +139,7 @@ public class KategoriController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Main.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectCategory.setIdKategori(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {

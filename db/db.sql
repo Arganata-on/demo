@@ -1,1 +1,1 @@
-use DATABASE toko_db;
+use toko_db;

@@ -95,7 +95,7 @@ public class MainController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Products.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectTransaction.setId_transaksi(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -132,7 +132,7 @@ public class MainController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Category.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectTransaction.setId_transaksi(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -146,7 +146,7 @@ public class MainController {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-        boolean success = showPopup(event, "/com/example/updatePopUp.fxml", "Update Data");
+        boolean success = showPopup(event, "/com/example/UpdateTransactionsPopUp.fxml", "Update Data");
         if (success) {
             refreshTabelBarang();
             showFadingMessage(alertLabel, "Data berhasil diperbarui.", 2, "#5DF57A");
@@ -160,11 +160,7 @@ public class MainController {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-        if (App.userSelectTransaction.getId_transaksi() == 0) {
-            PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
-            return;
-        }
-        boolean success = showPopup(event, "/com/example/deletePopup.fxml", "Delete Konfirmasi");
+        boolean success = showPopup(event, "/com/example/DeleteTransactionsPopUp.fxml", "Delete Konfirmasi");
         if (success) {
             refreshTabelBarang();
             showFadingMessage(alertLabel, "Data berhasil dihapus.", 2, "#5DF57A");

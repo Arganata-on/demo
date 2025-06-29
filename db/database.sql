@@ -1,9 +1,6 @@
-<<<<<<< HEAD
--- Active: 1751211854122@@127.0.0.1@3306@toko_db
-
+-- Active: 1748068829425@@127.0.0.1@3306@toko_db
 DROP DATABASE toko_db;
 
-=======
 >>>>>>> 536ba003ebf1d8207420ebef1f398f09cc62cd70
 CREATE DATABASE toko_db;
 
@@ -30,7 +27,6 @@ CREATE TABLE transactions (
     FOREIGN KEY (id_produk) REFERENCES products (id_produk) ON DELETE CASCADE
 );
 
-<<<<<<< HEAD
 UPDATE FROM categories SET nama_kategori ="Senjata Emakk" WHERE id_kategori =3 ;
 
 INSERT INTO
@@ -64,7 +60,6 @@ VALUES
     (19, 'Gelas Plastik', 4000, 80, 3),
     (20, 'Wajan Anti Lengket', 55000, 10, 3);
 
-=======
 INSERT INTO
     categories (id_kategori, nama_kategori)
 VALUES 
@@ -96,7 +91,6 @@ VALUES
     (19, 'Gelas Plastik', 4000, 80, 3),
     (20, 'Wajan Anti Lengket', 55000, 10, 3);
 
->>>>>>> 536ba003ebf1d8207420ebef1f398f09cc62cd70
 DELIMITER $$
 
 CREATE TRIGGER kurangi_stok_setelah_penjualan
@@ -108,8 +102,11 @@ BEGIN
     WHERE id_produk = NEW.id_produk;
 END$$
 
-<<<<<<< HEAD
 DELIMITER ;
-=======
 DELIMITER ;
->>>>>>> 536ba003ebf1d8207420ebef1f398f09cc62cd70
+
+SELECT t.id_transaksi, p.nama, p.harga, t.jumlah_dibeli, c.nama_kategori 
+                FROM transactions t 
+                JOIN products p ON t.id_produk = p.id_produk 
+                JOIN categories c ON p.id_kategori = c.id_kategori ORDER BY id_transaksi DESC;
+

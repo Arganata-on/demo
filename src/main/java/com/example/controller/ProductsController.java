@@ -23,7 +23,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public class ProductsController {
 
     ProductDatabase db = new ProductDatabase();
@@ -89,7 +88,7 @@ public class ProductsController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Main.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectProduct.setId_produk(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -104,7 +103,7 @@ public class ProductsController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Category.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-
+            App.userSelectProduct.setId_produk(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -198,7 +197,5 @@ public class ProductsController {
     public void refreshTabelBarang() {
         tableViewData.setItems(db.loadData());
     }
-
-   
 
 }
