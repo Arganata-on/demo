@@ -86,6 +86,23 @@ public class BerandaController {
     }
 
     @FXML
+    void sceneTransactions(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/Transactions.fxml"));
+
+            // Get the current scene from any node in the current view
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            // Set the new root for the current scene
+            currentScene.setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
     private void handleLoadAction() {
         App.userSelect.setId_produk(0);
         tableViewData.setItems(db.loadData());
