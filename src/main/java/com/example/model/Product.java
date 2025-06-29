@@ -1,11 +1,23 @@
 package com.example.model;
 
 public class Product {
+
     private int id_produk;
     private String nama;
+
     private int harga;
     private int stok;
     private String nama_kategori;
+
+    @Override
+    public String toString() {
+        return this.nama;
+    }
+
+    public Product(int id_produk, String nama) {
+        this.id_produk = id_produk;
+        this.nama = nama;
+    }
 
     public Product(int id_produk, String nama, int harga, int stok, String nama_kategori) {
         this.id_produk = id_produk;
