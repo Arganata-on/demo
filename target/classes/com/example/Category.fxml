@@ -13,15 +13,12 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.KategoriController">
   <center>
     <TableView fx:id="tableViewData" onDragDropped="#handleLoadAction" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 4px;">
       <columns>
         <TableColumn fx:id="kolomId" prefWidth="120.0" style="-fx-background-radius: 4px 0 0 0;" text="ID" />
         <TableColumn fx:id="kolomNama" prefWidth="209.0" text="NAMA" />
-        <TableColumn fx:id="kolomHarga" prefWidth="120.0" text="HARGA" />
-        <TableColumn fx:id="kolomStok" prefWidth="120.0" text="JUMLAH DIBELI" />
-        <TableColumn fx:id="kolomKategori" prefWidth="126.0" style="-fx-background-radius: 0 4px 0 0;" text="KATEGORY" />
       </columns>
          <BorderPane.margin>
             <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
@@ -101,20 +98,20 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER">
         <items>
             <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="3.0" />
-            <Button mnemonicParsing="false" style="-fx-background-color: #658fc5;" stylesheets="@css/button.css" text="Transactions" textFill="#f5f5f5">
+            <Button mnemonicParsing="false" onAction="#sceneTransactions" style="-fx-text-fill: #718094;" stylesheets="@css/button.css" text="Transactions" textFill="#f5f5f5">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Images/transactionIcon.png" />
+                        <Image url="@Images/transactionIcon%20NotActive.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
             <Region maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="3.0" />
-            <Button mnemonicParsing="false" onAction="#sceneCategory" style="-fx-text-fill: #718094;" stylesheets="@css/button.css" text="Category" textFill="#ffffff9e">
+            <Button mnemonicParsing="false" style="-fx-background-color: #658fc5;" stylesheets="@css/button.css" text="Category" textFill="#ffffff9e">
                <graphic>
                   <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Images/categoryIcon%20NotActive.png" />
+                        <Image url="@Images/categoryIcon.png" />
                      </image>
                   </ImageView>
                </graphic></Button>

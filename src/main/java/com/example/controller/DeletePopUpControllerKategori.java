@@ -11,9 +11,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class DeletePopUpController implements IResultableController {
+public class DeletePopUpControllerKategori implements IResultableController {
 
-    ProductDatabase db = new ProductDatabase();
+    KategoriDatabase db = new KategoriDatabase();
 
     @FXML
     private Button btnBatal;
@@ -33,18 +33,19 @@ public class DeletePopUpController implements IResultableController {
 
     @FXML
     public void initialize() {
-        messegeDelete.setText("Yakin ingin menghapus produk: " + App.userSelectProduct.getNama() + "?");
+        messegeDelete.setText("Yakin ingin menghapus produk: " + App.userSelectCategory.getKategoriNama() + "?");
     }
 
     @FXML
     void handleHapusAction(ActionEvent event) {
         System.out.println("Tombol Delete diklik!");
-        boolean dbSuccess = db.deleteData(App.userSelectProduct.getId_produk());
+        boolean dbSuccess = db.deleteData(App.userSelectCategory.getIdKategori());
         if (dbSuccess) {
             this.isSuccess = true;
         }
-        App.userSelectProduct.setId_produk(0);
+        App.userSelectCategory.setIdKategori(0);
         Utils.closeWindow(event);
+        db.loadData();
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.example.components.PopUpAlert;
 import com.example.db.*;
 import com.example.utils.IResultableController;
 import com.example.utils.Utils;
-import com.example.model.Kategory;
+import com.example.model.Kategori;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class InsertPopUpController implements IResultableController, Initializab
     ProductDatabase db = new ProductDatabase();
 
     @FXML
-    private ChoiceBox<Kategory> kategoryChoice;
+    private ChoiceBox<Kategori> kategoryChoice;
 
     @FXML
     private TextField hargaBarang;
@@ -52,7 +52,7 @@ public class InsertPopUpController implements IResultableController, Initializab
 
     @FXML
     void confirmData(ActionEvent event) {
-        Kategory selectedKategory = kategoryChoice.getValue();
+        Kategori selectedKategory = kategoryChoice.getValue();
         if (selectedKategory == null) {
             PopUpAlert.popupWarn("Input Error", "Kategori Belum Dipilih",
                     "Anda harus memilih kategori untuk barang.");
@@ -63,7 +63,7 @@ public class InsertPopUpController implements IResultableController, Initializab
             String nama = namaBarang.getText();
             int harga = Integer.parseInt(hargaBarang.getText());
             int stok = Integer.parseInt(stokBarang.getText());
-            int kategoryId = selectedKategory.getIdKategory();
+            int kategoryId = selectedKategory.getIdKategori();
 
             boolean dbSuccess = db.insertData(kode, nama, harga, stok, kategoryId);
             if (dbSuccess) {

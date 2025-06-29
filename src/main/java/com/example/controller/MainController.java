@@ -5,9 +5,10 @@ import java.io.IOException;
 import com.example.App;
 import com.example.components.PopUpAlert;
 // import com.example.db.Database;
-import com.example.db.ProductDatabase;
-import com.example.model.Product;
+import com.example.db.TransactionsDatabase;
+import com.example.model.Transactions;
 import com.example.utils.IResultableController;
+
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,27 +27,30 @@ import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
-public class BerandaController {
+public class MainController {
 
-    ProductDatabase db = new ProductDatabase();
-
-    @FXML
-    private TableView<Product> tableViewData;
+    TransactionsDatabase db = new TransactionsDatabase();
 
     @FXML
-    private TableColumn<Product, Integer> kolomId;
+    private TableView<Transactions> tableViewData;
 
     @FXML
-    private TableColumn<Product, String> kolomNama;
+    private TableColumn<Transactions, Integer> kolomId;
 
     @FXML
-    private TableColumn<Product, Integer> kolomHarga;
+    private TableColumn<Transactions, String> kolomNama;
 
     @FXML
-    private TableColumn<Product, Integer> kolomStok;
+    private TableColumn<Transactions, String> kolomKategori;
 
     @FXML
-    private TableColumn<Product, String> kolomKategori;
+    private TableColumn<Transactions, Integer> kolomHarga;
+
+    @FXML
+    private TableColumn<Transactions, Integer> kolomStok;
+
+    @FXML
+    private Button btnProduct;
 
     @FXML
     private Button loadButton;
@@ -65,35 +69,33 @@ public class BerandaController {
 
     @FXML
     public void initialize() {
-        kolomId.setCellValueFactory(new PropertyValueFactory<>("id_produk"));
+        kolomId.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
         kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
-        kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
-        kolomStok.setCellValueFactory(new PropertyValueFactory<>("stok"));
         kolomKategori.setCellValueFactory(new PropertyValueFactory<>("nama_kategori"));
+        kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
+        kolomStok.setCellValueFactory(new PropertyValueFactory<>("jumlah_dibeli"));
 
         tableViewData.setItems(db.loadData());
 
         tableViewData.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     if (newValue != null) {
-                        App.userSelect.setId_produk(newValue.getId_produk());
-                        App.userSelect.setNama(newValue.getNama());
-                        App.userSelect.setHarga(newValue.getHarga());
-                        App.userSelect.setStok(newValue.getStok());
-                        App.userSelect.setNama_kategori(newValue.getNama_kategori());
+                        App.userSelectTransaction.setId_transaksi(newValue.getId_transaksi());
+                        App.userSelectTransaction.setNama(newValue.getNama());
+                        App.userSelectTransaction.setNama_kategori(newValue.getNama_kategori());
+                        App.userSelectTransaction.setHarga(newValue.getHarga());
+                        App.userSelectTransaction.setJumlah_dibeli(newValue.getJumlah_dibeli());
                     }
                 });
     }
 
     @FXML
-    void sceneTransactions(ActionEvent event) {
+    void sceneProducts(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/Transactions.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/Products.fxml"));
 
-            // Get the current scene from any node in the current view
             Scene currentScene = ((Node) event.getSource()).getScene();
 
-            // Set the new root for the current scene
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -104,7 +106,7 @@ public class BerandaController {
 
     @FXML
     private void handleLoadAction() {
-        App.userSelect.setId_produk(0);
+        App.userSelectTransaction.setId_transaksi(0);
         tableViewData.setItems(db.loadData());
         if (!tableViewData.getItems().isEmpty()) {
             showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
@@ -117,7 +119,7 @@ public class BerandaController {
     @FXML
     private void handleInsertAction(ActionEvent event) {
         System.out.println("Tombol Insert diklik!");
-        boolean success = showPopup(event, "/com/example/InsertPopUp.fxml", "Insert Data");
+        boolean success = showPopup(event, "/com/example/InsertTransactionsPopUp.fxml", "Insert Data");
         if (success) {
             refreshTabelBarang();
             showFadingMessage(alertLabel, "Data berhasil ditambahkan.", 2, "#5DF57A");
@@ -125,8 +127,22 @@ public class BerandaController {
     }
 
     @FXML
+    void sceneCategory(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/Category.fxml"));
+
+            Scene currentScene = ((Node) event.getSource()).getScene();
+
+            currentScene.setRoot(root);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void handleUpdateAction(ActionEvent event) {
-        if (App.userSelect.getId_produk() == 0) {
+        if (App.userSelectTransaction.getId_transaksi() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
@@ -140,11 +156,11 @@ public class BerandaController {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        if (App.userSelect.getId_produk() == 0) {
+        if (App.userSelectTransaction.getId_transaksi() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
-        if (App.userSelect.getId_produk() == 0) {
+        if (App.userSelectTransaction.getId_transaksi() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
@@ -163,8 +179,10 @@ public class BerandaController {
             Object controllerObj = loader.getController();
 
             if (controllerObj instanceof updatePopUpController updateController) {
-                updateController.setData(App.userSelect.getNama(), String.valueOf(App.userSelect.getHarga()),
-                        String.valueOf(App.userSelect.getStok()), App.userSelect.getNama_kategori());
+                updateController.setData(App.userSelectTransaction.getNama(),
+                        String.valueOf(App.userSelectTransaction.getHarga()),
+                        String.valueOf(App.userSelectTransaction.getJumlah_dibeli()),
+                        App.userSelectTransaction.getNama_kategori());
             }
 
             Stage stage = new Stage();

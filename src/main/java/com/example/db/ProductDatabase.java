@@ -2,7 +2,7 @@ package com.example.db;
 
 import java.sql.*;
 
-import com.example.model.Kategory;
+import com.example.model.Kategori;
 import com.example.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,15 +103,15 @@ public class ProductDatabase extends DatabaseConnection {
         return productList;
     }
 
-    public ObservableList<Kategory> getAllkategory() {
-        ObservableList<Kategory> kategoriesList = FXCollections.observableArrayList();
+    public ObservableList<Kategori> getAllkategory() {
+        ObservableList<Kategori> kategoriesList = FXCollections.observableArrayList();
         String sql = "SELECT c.id_kategori, c.nama_kategori FROM categories c ORDER BY nama_kategori ASC";
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Kategory kategory = new Kategory(rs.getInt("id_kategori"), rs.getString("nama_kategori"));
+                Kategori kategory = new Kategori(rs.getInt("id_kategori"), rs.getString("nama_kategori"));
                 kategoriesList.add(kategory);
 
             }

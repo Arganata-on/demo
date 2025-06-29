@@ -8,12 +8,19 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+
 import com.example.model.Product;
+import com.example.model.Kategori;
+import com.example.model.Transactions;
 
 public class App extends Application {
     private static Scene scene;
 
-    public static Product userSelect = new Product(0, "nulll", 1, 1, "nul");
+    public static Product userSelectProduct = new Product(0, "nulll", 1, 1, "nul");
+
+    public static Kategori userSelectCategory = new Kategori(0,"null");
+
+    public static Transactions userSelectTransaction = new Transactions(0,"null","null",0,0);
 
     @Override
     public void start(Stage stage) throws IOException {

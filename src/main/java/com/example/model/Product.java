@@ -4,7 +4,6 @@ public class Product {
 
     private int id_produk;
     private String nama;
-
     private int harga;
     private int stok;
     private String nama_kategori;

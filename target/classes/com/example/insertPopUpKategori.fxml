@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="600.0" styleClass="mainContainer" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.insertPopUpKategoriController">
+  <children>
+    <HBox alignment="CENTER" layoutY="14.0" prefHeight="50.0" prefWidth="600.0">
+      <children>
+        <Label text="ID:">
+          <HBox.margin>
+            <Insets right="5.0" />
+          </HBox.margin>
+        </Label>
+        <TextField fx:id="idKategori" prefHeight="40.0" prefWidth="100.0">
+          <HBox.margin>
+            <Insets right="20.0" />
+          </HBox.margin>
+        </TextField>
+        <Label prefHeight="17.0" prefWidth="40.0" text="Nama:">
+          <HBox.margin>
+            <Insets right="5.0" />
+          </HBox.margin>
+        </Label>
+        <TextField fx:id="namaKategori" prefHeight="40.0" prefWidth="200.0">
+          <HBox.margin>
+            <Insets right="20.0" />
+          </HBox.margin>
+        </TextField>
+      </children>
+    </HBox>
+    <Button layoutX="395.0" layoutY="76.0" mnemonicParsing="false" onAction="#confirmData" text="Confirm">
+      <font>
+        <Font name="Poppins SemiBold" size="14.0" />
+      </font>
+    </Button>
+    <Button layoutX="278.0" layoutY="76.0" mnemonicParsing="false" onAction="#cancelData" text="Cancel">
+      <font>
+        <Font name="Poppins SemiBold" size="14.0" />
+      </font>
+    </Button>
+  </children>
+  <padding>
+    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+  </padding>
+  <stylesheets>
+    <URL value="@css/button.css" />
+    <URL value="@css/updatePopUp.css" />
+  </stylesheets>
+</AnchorPane>
