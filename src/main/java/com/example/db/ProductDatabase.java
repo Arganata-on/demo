@@ -93,6 +93,7 @@ public class ProductDatabase extends DatabaseConnection {
             }
         } catch (Exception e) {
             PopUpAlert.popupErr("Error Database", "Database Disconnect", "Database :" + e.getMessage());
+            return null;
         }
 
         return productList;

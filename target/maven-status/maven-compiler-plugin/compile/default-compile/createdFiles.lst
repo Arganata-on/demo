@@ -1,5 +1,5 @@
 com\example\controller\DeletePopUpController.class
-com\example\Main.class
+com\example\controller\SessionController.class
 com\example\components\PopUpAlert.class
 com\example\db\ProductDatabase.class
 module-info.class
@@ -7,6 +7,7 @@ com\example\controller\InsertPopUpController.class
 com\example\App.class
 com\example\controller\BerandaController.class
 com\example\db\DatabaseConnection.class
+com\example\model\SessionData.class
 com\example\controller\updatePopUpController.class
 com\example\model\Product.class
 com\example\utils\IResultableController.class

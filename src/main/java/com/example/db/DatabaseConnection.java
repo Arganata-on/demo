@@ -4,16 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
-    protected static final String URL = "jdbc:mysql://localhost:3307/arganataon";
-    protected static final String USER = "root";
-    protected static final String PASSWORD = "";
+import com.example.App;
 
+public class DatabaseConnection {
     protected Connection getConnection() {
+        String url = "jdbc:mysql://localhost:" + App.userDatabse.get_port() + "/" + App.userDatabse.get_databaseName();
+        String user = App.userDatabse.get_user();
+        String password = App.userDatabse.get_password();
+
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Mencoba koneksi ke: " + url);
+            return DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
-            System.err.println(" Gagal koneksi ke database: " + e.getMessage());
+            System.err.println("❌ Gagal koneksi ke database: " + e.getMessage());
             return null;
         }
     }
