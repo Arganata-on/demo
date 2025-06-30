@@ -66,11 +66,11 @@ public class UpdateTransactionsPopUpController implements IResultableController,
             int id_produk = selectedProduct.getId_produk();
             int jumlah_dibeli = Integer.parseInt(jumlahBarang.getText());
             boolean dbSuccess = db.updateData(id_produk, jumlah_dibeli,
-                    App.userSelectTransaction.getId_transaksi());
+                    App.userSelectTransaction.getIdTransaksi());
             if (dbSuccess) {
                 System.out.println("Data berhasil disimpan!");
                 this.isSuccess = true;
-                App.userSelectTransaction.setId_transaksi(0);
+                App.userSelectTransaction.setIdTransaksi(0);
                 Utils.closeWindow(event);
 
             }

@@ -50,6 +50,9 @@ public class MainController {
     private TableColumn<Transactions, Integer> kolomStok;
 
     @FXML
+    private TableColumn<Transactions, Integer> kolomTotalHarga;
+
+    @FXML
     private Button btnProduct;
 
     @FXML
@@ -67,27 +70,34 @@ public class MainController {
     @FXML
     private Label alertLabel;
 
-    @FXML
-    public void initialize() {
-        kolomId.setCellValueFactory(new PropertyValueFactory<>("id_transaksi"));
-        kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
-        kolomKategori.setCellValueFactory(new PropertyValueFactory<>("nama_kategori"));
-        kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga"));
-        kolomStok.setCellValueFactory(new PropertyValueFactory<>("jumlah_dibeli"));
+@FXML
+public void initialize() {
+    // Property names now match the camelCase fields in the corrected Transactions model
+    kolomId.setCellValueFactory(new PropertyValueFactory<>("idTransaksi"));
+    kolomNama.setCellValueFactory(new PropertyValueFactory<>("nama"));
+    kolomKategori.setCellValueFactory(new PropertyValueFactory<>("namaKategori"));
+    kolomHarga.setCellValueFactory(new PropertyValueFactory<>("harga")); // This is the historical unit price
+    kolomStok.setCellValueFactory(new PropertyValueFactory<>("jumlahDibeli"));
+    
+    // --- THIS LINE IS CORRECTED ---
+    // It now correctly targets 'kolomTotalHarga' and the 'totalHarga' property.
+    kolomTotalHarga.setCellValueFactory(new PropertyValueFactory<>("totalHarga"));
 
-        tableViewData.setItems(db.loadData());
+    tableViewData.setItems(db.loadData());
 
-        tableViewData.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        App.userSelectTransaction.setId_transaksi(newValue.getId_transaksi());
-                        App.userSelectTransaction.setNama(newValue.getNama());
-                        App.userSelectTransaction.setNama_kategori(newValue.getNama_kategori());
-                        App.userSelectTransaction.setHarga(newValue.getHarga());
-                        App.userSelectTransaction.setJumlah_dibeli(newValue.getJumlah_dibeli());
-                    }
-                });
-    }
+    tableViewData.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                if (newValue != null) {
+                    // Update your global selection object (ensure it also uses camelCase setters)
+                    App.userSelectTransaction.setIdTransaksi(newValue.getIdTransaksi());
+                    App.userSelectTransaction.setNama(newValue.getNama());
+                    App.userSelectTransaction.setNamaKategori(newValue.getNamaKategori());
+                    App.userSelectTransaction.setHarga(newValue.getHarga());
+                    App.userSelectTransaction.setJumlahDibeli(newValue.getJumlahDibeli());
+                    App.userSelectTransaction.setTotalHarga(newValue.getTotalHarga()); // Also track total price
+                }
+            });
+}
 
     @FXML
     void sceneProducts(ActionEvent event) {
@@ -95,7 +105,7 @@ public class MainController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Products.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-            App.userSelectTransaction.setId_transaksi(0);
+            App.userSelectTransaction.setIdTransaksi(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -106,7 +116,7 @@ public class MainController {
 
     @FXML
     private void handleLoadAction() {
-        App.userSelectTransaction.setId_transaksi(0);
+        App.userSelectTransaction.setIdTransaksi(0);
         tableViewData.setItems(db.loadData());
         if (!tableViewData.getItems().isEmpty()) {
             showFadingMessage(alertLabel, "Data has been loaded successfully.", 2, "#5DF57A");
@@ -132,7 +142,7 @@ public class MainController {
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/Category.fxml"));
 
             Scene currentScene = ((Node) event.getSource()).getScene();
-            App.userSelectTransaction.setId_transaksi(0);
+            App.userSelectTransaction.setIdTransaksi(0);
             currentScene.setRoot(root);
 
         } catch (IOException e) {
@@ -142,7 +152,7 @@ public class MainController {
 
     @FXML
     private void handleUpdateAction(ActionEvent event) {
-        if (App.userSelectTransaction.getId_transaksi() == 0) {
+        if (App.userSelectTransaction.getIdTransaksi() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
@@ -156,7 +166,7 @@ public class MainController {
 
     @FXML
     private void handleDeleteAction(ActionEvent event) {
-        if (App.userSelectTransaction.getId_transaksi() == 0) {
+        if (App.userSelectTransaction.getIdTransaksi() == 0) {
             PopUpAlert.popupWarn("Null Selected", "Peringatan", "Pilih item Trelebih Dahulu");
             return;
         }
@@ -177,8 +187,8 @@ public class MainController {
             if (controllerObj instanceof UpdateTransactionsPopUpController updateTransactionsPopUpController) {
                 updateTransactionsPopUpController.setData(App.userSelectTransaction.getNama(),
                         String.valueOf(App.userSelectTransaction.getHarga()),
-                        String.valueOf(App.userSelectTransaction.getJumlah_dibeli()),
-                        App.userSelectTransaction.getNama_kategori());
+                        String.valueOf(App.userSelectTransaction.getJumlahDibeli()),
+                        App.userSelectTransaction.getNamaKategori());
             }
 
             Stage stage = new Stage();

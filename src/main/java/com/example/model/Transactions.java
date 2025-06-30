@@ -1,57 +1,39 @@
 package com.example.model;
 
 public class Transactions {
-    private int id_transaksi;
+    // Fields now use standard Java camelCase naming
+    private int idTransaksi;
     private String nama;
-    private String nama_kategori;
-    private int harga;
-    private int jumlah_dibeli;
+    private String namaKategori;
+    private int harga; // Represents the historical price per unit
+    private int jumlahDibeli;
+    private int totalHarga;
 
-    public Transactions(int id_transaksi, String nama, String nama_kategori, int harga, int jumlah_dibeli) {
-        this.id_transaksi = id_transaksi;
+    public Transactions(int idTransaksi, String nama, String namaKategori, int harga, int jumlahDibeli, int totalHarga) {
+        this.idTransaksi = idTransaksi;
         this.nama = nama;
-        this.nama_kategori = nama_kategori;
+        this.namaKategori = namaKategori;
         this.harga = harga;
-        this.jumlah_dibeli = jumlah_dibeli;
+        this.jumlahDibeli = jumlahDibeli;
+        this.totalHarga = totalHarga;
     }
 
-    public int getId_transaksi() {
-        return id_transaksi;
-    }
+    // Getters and Setters also follow the camelCase convention
+    public int getIdTransaksi() { return idTransaksi; }
+    public void setIdTransaksi(int idTransaksi) { this.idTransaksi = idTransaksi; }
 
-    public void setId_transaksi(int id_transaksi) {
-        this.id_transaksi = id_transaksi;
-    }
+    public String getNama() { return nama; }
+    public void setNama(String nama) { this.nama = nama; }
 
-    public String getNama() {
-        return nama;
-    }
+    public String getNamaKategori() { return namaKategori; }
+    public void setNamaKategori(String namaKategori) { this.namaKategori = namaKategori; }
 
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
+    public int getHarga() { return harga; }
+    public void setHarga(int harga) { this.harga = harga; }
 
-    public String getNama_kategori() {
-        return nama_kategori;
-    }
-
-    public void setNama_kategori(String nama_kategori) {
-        this.nama_kategori = nama_kategori;
-    }
-
-    public int getHarga() {
-        return harga;
-    }
-
-    public void setHarga(int harga) {
-        this.harga = harga;
-    }
-
-    public int getJumlah_dibeli() {
-        return jumlah_dibeli;
-    }
-
-    public void setJumlah_dibeli(int jumlah_dibeli) {
-        this.jumlah_dibeli = jumlah_dibeli;
-    }
+    public int getJumlahDibeli() { return jumlahDibeli; }
+    public void setJumlahDibeli(int jumlahDibeli) { this.jumlahDibeli = jumlahDibeli; }
+    
+    public int getTotalHarga() { return totalHarga; }
+    public void setTotalHarga(int totalHarga) { this.totalHarga = totalHarga; }
 }

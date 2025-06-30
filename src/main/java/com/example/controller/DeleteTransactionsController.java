@@ -39,11 +39,11 @@ public class DeleteTransactionsController implements IResultableController {
     @FXML
     void handleHapusAction(ActionEvent event) {
         System.out.println("Tombol Delete diklik!");
-        boolean dbSuccess = transactionsDatabase.deleteData(App.userSelectTransaction.getId_transaksi());
+        boolean dbSuccess = transactionsDatabase.deleteData(App.userSelectTransaction.getIdTransaksi());
         if (dbSuccess) {
             this.isSuccess = true;
         }
-        App.userSelectTransaction.setId_transaksi(0);
+        App.userSelectTransaction.setIdTransaksi(0);
         Utils.closeWindow(event);
     }
 

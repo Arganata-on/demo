@@ -23,12 +23,6 @@ public class TransactionsDatabase extends DatabaseConnection {
             int rowsInserted = pstmt.executeUpdate();
             System.out.println(rowsInserted > 0 ? "Transaksi berhasil ditambahkan!" : "Gagal tambah transaksi.");
             return rowsInserted > 0;
-
-            // } catch (SQLIntegrityConstraintViolationException dupEx) {
-            // System.out.println("Transaksi dengan ID " + id_transaksi + " sudah ada!");
-            // PopUpAlert.popupWarn("Gagal Tambah", "Duplikat Transaksi", "ID transaksi
-            // sudah digunakan!");
-            // return false;
         } catch (Exception e) {
             PopUpAlert.popupErr("SQL Error", "Gagal Insert Data :" + id_produk, "SQL Error : " + e.getMessage());
             e.printStackTrace();
@@ -49,12 +43,6 @@ public class TransactionsDatabase extends DatabaseConnection {
             int rowsInserted = pstmt.executeUpdate();
             System.out.println(rowsInserted > 0 ? "Transaksi berhasil diubah!" : "Gagal ubah transaksi.");
             return rowsInserted > 0;
-
-            // } catch (SQLIntegrityConstraintViolationException dupEx) {
-            // System.out.println("Transaksi dengan ID " + id_transaksi + " sudah ada!");
-            // PopUpAlert.popupWarn("Gagal Tambah", "Duplikat Transaksi", "ID transaksi
-            // sudah digunakan!");
-            // return false;
         } catch (Exception e) {
             PopUpAlert.popupErr("SQL Error", "Gagal Insert Data :" + id_produk, "SQL Error : " + e.getMessage());
             e.printStackTrace();
@@ -83,48 +71,50 @@ public class TransactionsDatabase extends DatabaseConnection {
 
     public ObservableList<Transactions> loadData() {
         ObservableList<Transactions> transactionsList = FXCollections.observableArrayList();
-        String sql = "SELECT t.id_transaksi, p.nama, p.harga, t.jumlah_dibeli, c.nama_kategori " +
+        String sql = "SELECT " +
+                "    t.id_transaksi, " +
+                "    p.nama, " +
+                "    p.harga, " +
+                "    t.jumlah_dibeli, " +
+                "    c.nama_kategori, " +
+                "    (t.jumlah_dibeli * p.harga) AS total_harga " +
                 "FROM transactions t " +
                 "JOIN products p ON t.id_produk = p.id_produk " +
-                "JOIN categories c ON p.id_kategori = c.id_kategori ORDER BY id_transaksi DESC";
+                "JOIN categories c ON p.id_kategori = c.id_kategori " +
+                "ORDER BY t.id_transaksi DESC";
 
-        try (
-                Connection conn = getConnection();
+        try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
 
+            while (rs.next()) {
                 int idTransaksi = rs.getInt("id_transaksi");
                 String namaProduk = rs.getString("nama");
-                int hargaProduk = rs.getInt("harga");
+                int harga = rs.getInt("harga");
                 int jumlahDibeli = rs.getInt("jumlah_dibeli");
                 String namaKategori = rs.getString("nama_kategori");
+                int totalHarga = rs.getInt("total_harga");
 
-                Transactions transactions = new Transactions(
+                Transactions transaction = new Transactions(
                         idTransaksi,
                         namaProduk,
                         namaKategori,
-                        hargaProduk,
-                        jumlahDibeli);
+                        harga, // Pass the historical unit price
+                        jumlahDibeli,
+                        totalHarga);
 
-                transactionsList.add(transactions);
+                transactionsList.add(transaction);
             }
         } catch (Exception e) {
             PopUpAlert.popupErr("Error Database", "Database Disconnect", "Database Error: " + e.getMessage());
             e.printStackTrace();
         }
-
         return transactionsList;
     }
 
     public ObservableList<Product> getAllProduk() {
         ObservableList<Product> productList = FXCollections.observableArrayList();
 
-        // --- CORRECTED SQL QUERY ---
-        // This query now selects the price, stock, and joins with the categories table
-        // to get the category name.
-        // NOTE: I have inferred your table names ('products', 'categories') from your
-        // 'loadData' method.
         String sql = "SELECT p.id_produk, p.nama, p.harga, p.stok, c.nama_kategori " +
                 "FROM products p " +
                 "LEFT JOIN categories c ON p.id_kategori = c.id_kategori " +

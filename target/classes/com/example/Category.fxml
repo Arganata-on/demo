@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="733.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.KategoriController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="846.0" styleClass="mainContainer" stylesheets="@css/main.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.KategoriController">
   <center>
     <TableView fx:id="tableViewData" onDragDropped="#handleLoadAction" prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 4px;">
       <columns>
         <TableColumn fx:id="kolomId" prefWidth="120.0" style="-fx-background-radius: 4px 0 0 0;" text="ID" />
-        <TableColumn fx:id="kolomNama" prefWidth="209.0" text="NAMA" />
+        <TableColumn fx:id="kolomNama" prefWidth="274.0" text="NAMA" />
       </columns>
          <BorderPane.margin>
             <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />
