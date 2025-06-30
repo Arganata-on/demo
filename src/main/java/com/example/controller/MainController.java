@@ -174,8 +174,8 @@ public class MainController {
 
             Object controllerObj = loader.getController();
 
-            if (controllerObj instanceof updatePopUpController updateController) {
-                updateController.setData(App.userSelectTransaction.getNama(),
+            if (controllerObj instanceof UpdateTransactionsPopUpController updateTransactionsPopUpController) {
+                updateTransactionsPopUpController.setData(App.userSelectTransaction.getNama(),
                         String.valueOf(App.userSelectTransaction.getHarga()),
                         String.valueOf(App.userSelectTransaction.getJumlah_dibeli()),
                         App.userSelectTransaction.getNama_kategori());

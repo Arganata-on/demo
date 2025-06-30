@@ -19,9 +19,9 @@
       <columns>
         <TableColumn fx:id="kolomId" prefWidth="120.0" style="-fx-background-radius: 4px 0 0 0;" text="ID" />
         <TableColumn fx:id="kolomNama" prefWidth="209.0" text="NAMA" />
+        <TableColumn fx:id="kolomKategori" prefWidth="126.0" style="-fx-background-radius: 0 4px 0 0;" text="KATEGORY" />
         <TableColumn fx:id="kolomHarga" prefWidth="120.0" text="HARGA" />
         <TableColumn fx:id="kolomStok" prefWidth="120.0" text="JUMLAH DIBELI" />
-        <TableColumn fx:id="kolomKategori" prefWidth="126.0" style="-fx-background-radius: 0 4px 0 0;" text="KATEGORY" />
       </columns>
          <BorderPane.margin>
             <Insets bottom="7.0" left="5.0" right="5.0" top="5.0" />

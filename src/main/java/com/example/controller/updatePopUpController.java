@@ -35,7 +35,6 @@ public class updatePopUpController implements IResultableController, Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Populate the choicebox from the database
         kategoryChoice.setItems(db.getAllkategory());
     }
 

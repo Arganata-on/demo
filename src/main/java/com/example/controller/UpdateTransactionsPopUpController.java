@@ -28,72 +28,49 @@ import javafx.scene.control.TextField;
 
 public class UpdateTransactionsPopUpController implements IResultableController, Initializable {
 
-    TransactionsDatabase transactionsDatabase = new TransactionsDatabase();
+    TransactionsDatabase db = new TransactionsDatabase();
 
     @FXML
-
     private ChoiceBox<Product> produkChoice;
 
     @FXML
-
     private Label hargaBarang;
 
     @FXML
-
-    private TextField stokBarang;
-
-    private boolean isSuccess = false;
+    private Label lableCategory;
 
     @FXML
+    private TextField jumlahBarang;
 
-    void cancelData(ActionEvent event) {
-
-        Utils.closeWindow(event);
-
-    }
+    private boolean isSuccess = false;
 
     @Override
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        produkChoice.setItems(db.getAllProduk());
 
-        produkChoice.setItems(transactionsDatabase.getAllProduk());
+    }
+
+    @FXML
+    void cancelData(ActionEvent event) {
+        clearData();
+        Utils.closeWindow(event);
 
     }
 
     @FXML
 
     void confirmData(ActionEvent event) {
-
         Product selectedProduct = produkChoice.getValue();
-
-        if (selectedProduct == null) {
-
-            PopUpAlert.popupWarn("Input Error", "Kategori atau Produk Belum Dipilih",
-
-                    "Anda harus memilih kategori dan produk untuk barang.");
-
-            return;
-
-        }
-
         try {
-
             int id_produk = selectedProduct.getId_produk();
-
-            int jumlah_dibeli = Integer.parseInt(stokBarang.getText());
-
-            boolean dbSuccess = transactionsDatabase.updateData(id_produk, jumlah_dibeli,
-
+            int jumlah_dibeli = Integer.parseInt(jumlahBarang.getText());
+            boolean dbSuccess = db.updateData(id_produk, jumlah_dibeli,
                     App.userSelectTransaction.getId_transaksi());
-
             if (dbSuccess) {
-
                 System.out.println("Data berhasil disimpan!");
-
                 this.isSuccess = true;
-
                 App.userSelectTransaction.setId_transaksi(0);
-
                 Utils.closeWindow(event);
 
             }
@@ -109,19 +86,36 @@ public class UpdateTransactionsPopUpController implements IResultableController,
         } catch (Exception e) {
 
             System.out.println("Terjadi kesalahan saat menyimpan data : " + e.getMessage());
-
             PopUpAlert.popupWarn("Gagal Simpan", "Gagal Simpan",
-
                     "Terjadi kesalahan tidak terduga :" + e.getLocalizedMessage());
 
         }
 
     }
 
+    public void setData(String nama, String harga, String jumlah, String namaKategory) {
+        selectProductByName(nama);
+        hargaBarang.setText(harga);
+        jumlahBarang.setText(jumlah);
+        lableCategory.setText(namaKategory);
+    }
+
+    public void clearData() {
+        hargaBarang.setText("");
+        jumlahBarang.setText("");
+        lableCategory.setText("");
+        produkChoice.getSelectionModel().clearSelection();
+    }
+
+    public void selectProductByName(String namaProduct) {
+        produkChoice.getItems().stream()
+                .filter(product -> product.getNama().equals(namaProduct))
+                .findFirst()
+                .ifPresent(product -> produkChoice.setValue(product));
+    }
+
     @Override
-
     public boolean isSuccess() {
-
         return isSuccess;
 
     }

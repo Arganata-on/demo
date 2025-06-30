@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
 import com.example.components.PopUpAlert;
@@ -24,19 +25,13 @@ public class InsertTransactionsPopUpController implements IResultableController,
     private ChoiceBox<Product> produkChoice;
 
     @FXML
-    private TextField hargaBarang;
-
-    @FXML
-    private TextField kodeBarang;
-
-    @FXML
-    private TextField namaBarang;
-
-    @FXML
-    private TextField stokBarang;
+    private Label labelCategory;
 
     @FXML
     private Label labelHarga;
+
+    @FXML
+    private TextField jumlahBarang;
 
     private boolean isSuccess = false;
 
@@ -47,20 +42,35 @@ public class InsertTransactionsPopUpController implements IResultableController,
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         produkChoice.setItems(db.getAllProduk());
+
+        produkChoice.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+
+                        labelHarga.setText(String.valueOf(newValue.getHarga()));
+                        labelCategory.setText(newValue.getNama_kategori());
+                    } else {
+
+                        labelHarga.setText("0,00");
+                        labelCategory.setText("Pilih Produk");
+                    }
+                });
     }
 
     @FXML
     void confirmData(ActionEvent event) {
         Product selectedProduct = produkChoice.getValue();
-        if (selectedProduct == null) {
-            PopUpAlert.popupWarn("Input Error", "Kategori atau Produk Belum Dipilih",
-                    "Anda harus memilih kategori dan produk untuk barang.");
-            return;
-        }
         try {
             int id_produk = selectedProduct.getId_produk();
-            int jumlah_dibeli = Integer.parseInt(stokBarang.getText());
+            int jumlah_dibeli = Integer.parseInt(jumlahBarang.getText());
+
+            if (jumlah_dibeli <= 0) {
+                PopUpAlert.popupWarn("Input Error", "Jumlah Tidak Valid",
+                        "Jumlah barang yang dibeli harus lebih dari 0.");
+                return;
+            }
 
             boolean dbSuccess = db.insertData(id_produk, jumlah_dibeli);
             if (dbSuccess) {
@@ -72,7 +82,7 @@ public class InsertTransactionsPopUpController implements IResultableController,
         } catch (NumberFormatException e) {
             System.out.println("Input angka tidak valid ");
             PopUpAlert.popupWarn("Input Error", "Data tidak Valid",
-                    "Pastikan input harga, stok, dan kode berupa angka");
+                    "Pastikan input jumlah barang berupa angka.");
         } catch (Exception e) {
             System.out.println("Terjadi kesalahan saat menyimpan data : " + e.getMessage());
             PopUpAlert.popupWarn("Gagal Simpan", "Gagal Simpan",

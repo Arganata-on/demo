@@ -119,20 +119,41 @@ public class TransactionsDatabase extends DatabaseConnection {
 
     public ObservableList<Product> getAllProduk() {
         ObservableList<Product> productList = FXCollections.observableArrayList();
-        String sql = "SELECT p.id_produk, p.nama FROM products p ORDER BY p.nama ASC;";
+
+        // --- CORRECTED SQL QUERY ---
+        // This query now selects the price, stock, and joins with the categories table
+        // to get the category name.
+        // NOTE: I have inferred your table names ('products', 'categories') from your
+        // 'loadData' method.
+        String sql = "SELECT p.id_produk, p.nama, p.harga, p.stok, c.nama_kategori " +
+                "FROM products p " +
+                "LEFT JOIN categories c ON p.id_kategori = c.id_kategori " +
+                "ORDER BY p.nama ASC";
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
+
             while (rs.next()) {
-                Product product = new Product(
-                        rs.getInt("id_produk"),
-                        rs.getString("nama"));
+                // --- EXTRACT ALL DATA FROM RESULTSET ---
+                int id_produk = rs.getInt("id_produk");
+                String nama = rs.getString("nama");
+                int harga = rs.getInt("harga");
+                int stok = rs.getInt("stok");
+                String nama_kategori = rs.getString("nama_kategori");
+
+                // --- USE THE FULL CONSTRUCTOR ---
+                // Now we create the Product object with all the data we fetched.
+                Product product = new Product(id_produk, nama, harga, stok, nama_kategori);
+
                 productList.add(product);
             }
 
         } catch (SQLException e) {
+            // It's good practice to print the stack trace during development to see the
+            // full error.
             e.printStackTrace();
+            PopUpAlert.popupErr("Database Error", "Failed to load products", "Error: " + e.getMessage());
         }
 
         return productList;
